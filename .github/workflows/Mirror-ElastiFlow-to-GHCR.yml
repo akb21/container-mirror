@@ -3,14 +3,14 @@ name: Mirror ElastiFlow to GHCR
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:
-  schedule:
-    - cron: "0 22 * * *"
+  # workflow_dispatch:
+  # schedule:
+  #   - cron: "0 22 * * *"
 
 env:
   IMAGE_NAME: elastiflow/flow-collector
   TARGET_IMAGE: ghcr.io/${{ github.repository_owner }}/elastiflow-flow-collector
-  TAG: latest
+  TAG: 7.21.0
 
 jobs:
   mirror:
