@@ -1,16 +1,14 @@
-name: Mirror ElastiFlow to GHCR
+name: Mirror portainer-ce to GHCR
 
 on:
-  push:
-    branches: [ "main" ]
-  # workflow_dispatch:
-  # schedule:
-  #   - cron: "0 22 * * *"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 20 * * *"
 
 env:
-  IMAGE_NAME: elastiflow/flow-collector
-  TARGET_IMAGE: ghcr.io/${{ github.repository_owner }}/elastiflow-flow-collector
-  TAG: 7.21.0
+  IMAGE_NAME: portainer/portainer-ce
+  TARGET_IMAGE: ghcr.io/${{ github.repository_owner }}/portainer-ce
+  TAG: lts
 
 jobs:
   mirror:

@@ -1,11 +1,11 @@
 name: Mirror grafana to GHCR
 
 on:
-  push:
-    branches: [ "main" ]
-  # workflow_dispatch:
-  # schedule:
-  #   - cron: "0 22 * * *"
+  # push:
+  #   branches: [ "main" ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 22 * * *"
 
 env:
   IMAGE_NAME: grafana/grafana
