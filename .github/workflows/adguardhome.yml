@@ -1,9 +1,8 @@
 name: Mirror adguardhome to GHCR
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "20 20 * * *"
 
 env:
   IMAGE_NAME: adguard/adguardhome
