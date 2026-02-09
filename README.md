@@ -16,26 +16,16 @@
    - 重新打标签 (Retag) 为 GHCR 格式。
    - 推送 (Push) 到项目的 GHCR 仓库。
 
-## 当前镜像列表
-
-| 镜像名称 | 来源镜像 | 目标镜像 (GHCR) | 标签 (Tag) |
-| :--- | :--- | :--- | :--- |
-| AdGuard Home | `adguard/adguardhome` | `ghcr.io/${{ github.repository_owner }}/adguardhome` | `latest` |
-| Grafana | `grafana/grafana` | `ghcr.io/${{ github.repository_owner }}/grafana` | `main` |
-| Portainer CE | `portainer/portainer-ce` | `ghcr.io/${{ github.repository_owner }}/portainer-ce` | `lts` |
-
 ## 如何添加新镜像
 
-1. 在 `.github/workflows/` 目录下参考现有文件创建一个新的 `.yml` 文件。
-2. 建议命名格式为 `mirror-<image-name>.yml`。
-3. 修改 `env` 部分的配置：
+1. 编辑 `.github/workflows/mirror.yml` 文件。
+2. 在 `jobs.mirror.strategy.matrix.include` 列表中添加新镜像配置：
    ```yaml
-   env:
-     IMAGE_NAME: 原始镜像名称
-     TARGET_IMAGE: ghcr.io/${{ github.repository_owner }}/目标镜像名
-     TAG: 镜像标签
+   - src: 原始镜像名称 (例如: library/nginx)
+     dst: 目标镜像名称 (例如: nginx)
+     tag: 镜像标签 (例如: alpine)
    ```
-4. 提交更改后，GitHub Actions 将会自动识别并运行。
+3. 提交更改后，GitHub Actions 将会自动识别并运行。
 
 ## 许可证
 

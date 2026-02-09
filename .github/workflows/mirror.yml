@@ -1,0 +1,39 @@
+name: Mirror Images to GHCR
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - src: adguard/adguardhome
+            dst: adguardhome
+            tag: latest
+          - src: grafana/grafana
+            dst: grafana
+            tag: main
+          - src: portainer/portainer-ce
+            dst: portainer-ce
+            tag: lts
+
+    steps:
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Mirror image
+        run: |
+          SRC_IMAGE="${{ matrix.src }}:${{ matrix.tag }}"
+          DST_IMAGE="ghcr.io/${{ github.repository_owner }}/${{ matrix.dst }}:${{ matrix.tag }}"
+          docker pull "$SRC_IMAGE"
+          docker tag "$SRC_IMAGE" "$DST_IMAGE"
+          docker push "$DST_IMAGE"
